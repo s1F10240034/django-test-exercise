@@ -42,9 +42,9 @@ def update(request, task_id):
         raise Http404("Task does not exist")
     if request.method == 'POST':
         task.title = request.POST['title']
-        task.due_at = make_awere(parse_datetime(request.POST['due_at']))
+        task.due_at = make_aware(parse_datetime(request.POST['due_at']))
         task.save()
-        return redirect(detail, tassk_id)
+        return redirect(detail, task_id)
     
     context = {
         'task': task
