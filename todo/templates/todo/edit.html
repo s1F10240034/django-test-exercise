@@ -6,12 +6,6 @@
     <title>To Do Application</title>
     <meta charset="UTF-8">
     <meta name="author" content="INIAD">
-    <style>
-      button {
-        background-color: #a3dcff;
-        color: #e0dd18;
-      }
-    </style>
   </head>
 
   <body>
@@ -28,7 +22,7 @@
         <input id="dueInput" name="due_at" type="datetime-local" value="{{ task.due_at |date:"Y-m-d H:i" }}">
       </div>
       <div>
-        <button type="submit">Submit</button>
+        <button type="submit" style="background-color: yellow; color: black;">Submit</button>
       </div>
     </form>
     <br>
