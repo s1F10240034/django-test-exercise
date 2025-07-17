@@ -2,7 +2,7 @@ from django.test import TestCase, Client
 from django.utils import timezone
 from datetime import datetime
 from todo.models import Task
-
+from todo.views import delete
 
 # Create your tests here.
 class SampleTestCase(TestCase):
@@ -111,5 +111,20 @@ class TodoViewTestCase(TestCase):
     def test_detail_get_fail(self):
         client = Client()
         response = client.get('/1/')
+
+        self.assertEqual(response.status_code, 404)
+
+    def test_delete_success(self):
+        task = Task.objects.create(title="Test Task", due_at=timezone.make_aware(datetime(2024, 7, 1)))
+        task.save()
+        client = Client()
+        response = client.post(f'/{task.id}/delete')
+
+        self.assertEqual(response.status_code, 302)
+        self.assertFalse(Task.objects.filter(pk=task.id).exists())
+
+    def test_delete_fail(self):
+        client = Client()
+        response = client.get('/9999/delete')
 
         self.assertEqual(response.status_code, 404)
